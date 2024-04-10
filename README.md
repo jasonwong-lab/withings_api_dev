@@ -41,6 +41,8 @@ cp project.template.conf project.conf
 nano project.conf
 ```
 
+Also update app.py (Line 13) LOCAL_CONFIG_PATH with the absolute path of the projects.conf
+
 ## Testing the app
 
 Open a web browser and go to https://{user}.pythonanywhere.com
