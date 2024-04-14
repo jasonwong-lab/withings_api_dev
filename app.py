@@ -107,3 +107,20 @@ def get_token():
                                 params=payload).json()
 
     return r_listdevice
+
+    # Get list of all signal id
+    sample_list = json.loads(r_listdevice)
+    signalid_list = [series['signalid'] for series in r_listdevice['body']['series']]
+
+    # Download all samples
+    for signalid in signalid_list:
+        payload = 'action=get'+"&"+ \
+                  'signalid='+str(signalid)
+
+        r_getsample = requests.post('https://wbsapi.withings.net/v2/stetho',
+                                    headers=headers,
+                                    params=payload).json()
+
+        filename = f"{signalid}.json"
+        with open(filename, 'w') as file:
+            file.write(json.dumps(r_getsample))
