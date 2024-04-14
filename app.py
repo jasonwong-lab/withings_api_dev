@@ -6,6 +6,7 @@ import os
 import configparser
 import sys
 import json
+import time
 
 _config = configparser.ConfigParser()
 DEFAULT_CONFIG_FILES = []
@@ -91,3 +92,18 @@ def get_token():
     #DEBUG: print(r_getdevice,file=sys.stderr)
 
     return r_getdevice
+	
+    # List all samples of stethoscope
+    #startdate=2024/2/29
+    #enddate=1 minute ago
+    offset = '00'                                          #x next available rows
+    payload = 'action=list'+"&"+ \
+               'startdate=1709136000'+"&"+ \
+               'enddate='+str(int(time.time())-60)+"&"+ \
+               'offset='+offset
+
+    r_listdevice = requests.post('https://wbsapi.withings.net/v2/stetho',
+                                headers=headers,
+                                params=payload).json()
+
+    return r_listdevice
