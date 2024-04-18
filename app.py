@@ -91,7 +91,7 @@ def get_token():
                                
     #DEBUG: print(r_getdevice,file=sys.stderr)
 
-    return r_getdevice
+    #return r_getdevice
 	
     # List all samples of stethoscope
     #startdate=2024/2/29
@@ -106,10 +106,10 @@ def get_token():
                                 headers=headers,
                                 params=payload).json()
 
-    return r_listdevice
+    #return r_listdevice
 
     # Get list of all signal id
-    sample_list = json.loads(r_listdevice)
+    #sample_list = json.loads(r_listdevice)
     signalid_list = [series['signalid'] for series in r_listdevice['body']['series']]
 
     # Download all samples
