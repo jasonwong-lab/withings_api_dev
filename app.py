@@ -124,3 +124,4 @@ def get_token():
         filename = f"{signalid}.json"
         with open(filename, 'w') as file:
             file.write(json.dumps(r_getsample))
+    return "Done!"
