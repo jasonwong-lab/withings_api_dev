@@ -26,6 +26,21 @@ CALLBACK_URI = _config.get('withings_api', 'callback_uri')
 
 app = Flask(__name__)
 
+# Signal decoder, exactly the same as the example in C
+def decode(c):
+    m = c ^ 0x55
+    m = m & 0x0f
+    e = (c & 0x70) >> 4
+    if e > 0:
+        m |= 0x10
+    m <<= 4
+    m |= 0x08
+    if e > 1:
+        m <<= e-1
+    if c < 0x80:
+        m = -m
+    return m
+
 @app.route("/")
 def get_code():
     """
@@ -120,8 +135,13 @@ def get_token():
         r_getsample = requests.post('https://wbsapi.withings.net/v2/stetho',
                                     headers=headers,
                                     params=payload).json()
-
+	# Decode samples
+        signal = r_getsample['body']['signal']
+        for i in range(len(signal)):
+            signal[i] = decode(signal[i])
+		
         filename = f"{signalid}.json"
         with open(filename, 'w') as file:
             file.write(json.dumps(r_getsample))
+		
     return "Done!"
