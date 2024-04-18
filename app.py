@@ -28,8 +28,8 @@ app = Flask(__name__)
 
 # Signal decoder, exactly the same as the example in C
 def decode(c):
-    m = c ^ 0x55
-    m = m & 0x0f
+    c = c ^ 0x55
+    m = c & 0x0f
     e = (c & 0x70) >> 4
     if e > 0:
         m |= 0x10
@@ -138,6 +138,8 @@ def get_token():
 	# Decode samples
         signal = r_getsample['body']['signal']
         for i in range(len(signal)):
+	    if signal[i] <0:
+        	signal[i] += 256
             signal[i] = decode(signal[i])
 		
         filename = f"{signalid}.json"
