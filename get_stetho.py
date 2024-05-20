@@ -86,7 +86,7 @@ def download_stetho(signalid):
 _config = configparser.ConfigParser()
 DEFAULT_CONFIG_FILES = []
 
-LOCAL_CONFIG_PATH = "/home/jwon7011/withings/project.conf"
+LOCAL_CONFIG_PATH = #### Enter path for local config file 
 
 #print(LOCAL_CONFIG_PATH)
 
