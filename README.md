@@ -33,9 +33,12 @@ Keep a note of the client_id and client_secret these will need to be used for pr
 
 project.conf contains information required to access withings API. As it contains it contains authentication information for your withings developer account, it is part of .gitignore.
 
-In the pythonanywhere bash console, make a copy of project.template.conf and enter  your client_id and client_secret from the developer account just created.
+In the pythonanywhere bash console, make a copy of project.template.conf and enter your client_id and client_secret from the developer account just created.
 
 Also enter any string for {state} and https://{user}.pythonanywhere.com/get_token for callback_uri.
+
+Also enter path for local DB file to store access/refresh token and path to download stethoscope files.
+
 ```
 cp project.template.conf project.conf
 nano project.conf
@@ -55,5 +58,14 @@ The following will happened:
 * With this access token you can get the data from the user, or even subscribe to a notification features.
 * As an example the app finally list the devices of the user (if any) in JSON format.
 
+## Downloading stethoscope sound files
+
+Update get_stetho.py (Line 89) LOCAL_CONFIG_PATH with the absolute path of the projects.conf
+
+```
+python get_stetho.py
+```
+
+Wave files will be saved to the SOUND_PATH specified in the projects.conf. The wave file name consist of the signalid and vhd.
 
 NB: This is an example for communicating with Withings' developer API. To develop other functions see full API documentation (https://developer.withings.com/api-reference/)
