@@ -10,7 +10,7 @@ import json
 _config = configparser.ConfigParser()
 DEFAULT_CONFIG_FILES = []
 
-LOCAL_CONFIG_PATH = "/home/jwon7011/withings/project.conf"
+LOCAL_CONFIG_PATH = ### enter location of your {LOCAL_CONFIG_PATH} file
 
 print(LOCAL_CONFIG_PATH)
 
