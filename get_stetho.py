@@ -115,6 +115,6 @@ r_signals = requests.post(f'{WBSAPI_URL}/v2/stetho',headers=headers,params=paylo
 # Get list of all signal id
 signalid_list = [series['signalid'] for series in r_signals['body']['series']]
 
-for i in len(signalid_list):
+for i in range(len(signalid_list)):
     download_stetho(signalid_list[i])
 
