@@ -5,13 +5,6 @@ import requests
 import os
 import configparser
 import sys
-import json#!/usr/bin/env python
-
-from flask import Flask, request, redirect
-import requests
-import os
-import configparser
-import sys
 import json
 
 _config = configparser.ConfigParser()
