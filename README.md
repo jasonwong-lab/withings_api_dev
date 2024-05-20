@@ -58,6 +58,8 @@ The following will happened:
 * With this access token you can get the data from the user, or even subscribe to a notification features.
 * As an example the app finally list the devices of the user (if any) in JSON format.
 
+NB: This is an example for communicating with Withings' developer API. To develop other functions see full API documentation (https://developer.withings.com/api-reference/)
+
 ## Downloading stethoscope sound files
 
 Update get_stetho.py (Line 89) LOCAL_CONFIG_PATH with the absolute path of the projects.conf
@@ -68,4 +70,3 @@ python get_stetho.py
 
 Wave files will be saved to the SOUND_PATH specified in the projects.conf. The wave file name consist of the signalid and vhd.
 
-NB: This is an example for communicating with Withings' developer API. To develop other functions see full API documentation (https://developer.withings.com/api-reference/)
