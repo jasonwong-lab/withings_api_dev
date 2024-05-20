@@ -9,21 +9,6 @@ import json
 import wave
 from array import array
 
-# Signal decoder, exactly the same as the example in C
-def decode(c):
-    c = c ^ 0x55
-    m = c & 0x0f
-    e = (c & 0x70) >> 4
-    if e > 0:
-        m |= 0x10
-    m <<= 4
-    m |= 0x08
-    if e > 1:
-        m <<= e-1
-    if c < 0x80:
-        m = -m
-    return m
-
 # Refresh the tokens
 def get_token(DB_PATH):
 
@@ -66,20 +51,15 @@ def download_stetho(signalid):
 
     signal = r_getsample['body']['signal']
     vhd = r_getsample['body']['vhd']
-    #print (signal[0:500])
     print ("Downloading to "+SOUND_PATH+str(signalid)+"_"+str(vhd)+".wav")
 
-    # Decode samples
-    for i in range(len(signal)):
-      #print (signal[i])
-      #if signal[i] <0:
-      #    signal[i] += 256
-      signal[i] = decode(signal[i])
-
-    arr = array("i",signal)
+    # Convert signal directly into an array of bytes and then save to wave file.
+    arr = b""
+    for i in signal:
+        arr += i.to_bytes(2, byteorder='little', signed=True)
     with wave.open(SOUND_PATH+str(signalid)+"_"+str(vhd)+".wav", 'wb') as wavfile:
-        wavfile.setparams((1, 2, 4000, 0, 'NONE', 'NONE'))
-        wavfile.writeframes(arr.tobytes())
+        wavfile.setparams((1, 2, 2000, 0, 'NONE', 'NONE'))
+        wavfile.writeframes(arr)
 
 
 # Get config data
